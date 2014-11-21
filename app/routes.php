@@ -15,3 +15,13 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::controller('oauth', 'OAuthController');
+
+Route::post('login', 'OAuthController@postAccessToken');
+Route::post('register', 'UsersController@postRegister');
+
+Route::group(['before' => 'oauth'], function () {
+	Route::controller('user', 'UsersController');
+	Route::resource('course', 'CoursesController');
+});
