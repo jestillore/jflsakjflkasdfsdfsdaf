@@ -37,7 +37,7 @@ class CoursesController extends \BaseController {
 		$course->holes = array_get($input, 'holes');
 		$course->active = array_get($input, 'active');
 		if($course->save()) {
-			foreach(array_get($input, 'holeItems') as $hole) {
+			foreach(array_get($input, 'hole_items') as $hole) {
 				$h = new Hole;
 				$h->hole_number = array_get($hole, 'hole_number');
 				$h->par = array_get($hole, 'par');
