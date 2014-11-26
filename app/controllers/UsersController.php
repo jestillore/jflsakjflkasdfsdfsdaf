@@ -39,6 +39,8 @@ class UsersController extends BaseController {
 		return Response::make($user->errors(), 500); // returns error message from validation
 	}
 
-	
+	public function getAll() {
+		return User::whereNotIn('id', [Authorizer::getResourceOwnerId()])->get();
+	}
 
 }

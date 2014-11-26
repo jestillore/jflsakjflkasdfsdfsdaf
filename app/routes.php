@@ -24,4 +24,5 @@ Route::post('register', 'UsersController@postRegister');
 Route::group(['before' => 'oauth'], function () {
 	Route::controller('user', 'UsersController');
 	Route::resource('course', 'CoursesController');
+	Route::resource('party-play', 'PartyPlayController');
 });
