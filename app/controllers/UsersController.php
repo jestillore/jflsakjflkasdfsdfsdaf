@@ -33,7 +33,7 @@ class UsersController extends BaseController {
 		$user->password = Hash::make(array_get($input, 'password'));
 		$user->gender = array_get($input, 'gender');
 		$user->handicap = array_get($input, 'handicap');
-		if($user->save()) { // validate inputs
+		if($user->updateUniques()) { // validate inputs
 			return $user;
 		}
 		return Response::make($user->errors(), 500); // returns error message from validation
