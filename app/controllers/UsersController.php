@@ -30,7 +30,8 @@ class UsersController extends BaseController {
 		$user->firstname = array_get($input, 'firstname');
 		$user->lastname = array_get($input, 'lastname');
 		$user->email = array_get($input, 'email');
-		$user->password = Hash::make(array_get($input, 'password'));
+		if(!empty(array_get($input, 'password')))
+			$user->password = Hash::make(array_get($input, 'password'));
 		$user->gender = array_get($input, 'gender');
 		$user->handicap = array_get($input, 'handicap');
 		if($user->updateUniques()) { // validate inputs
