@@ -40,7 +40,7 @@ class UsersController extends BaseController {
 	}
 
 	public function getAll() {
-		return User::whereNotIn('id', [Authorizer::getResourceOwnerId()])->get();
+		return User::all();
 	}
 
 }
