@@ -27,4 +27,9 @@ class OpenCompetitionCompetitor extends BaseModel {
 		return $query->whereIn('open_competition_id', $ids);
 	}
 
+	public function approve() {
+		$this->approved = true;
+		$this->save();
+	}
+
 }

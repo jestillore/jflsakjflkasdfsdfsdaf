@@ -3,12 +3,12 @@
 class OpenCompetitionController extends BaseController {
 
 	// get all open competitions
-	public function getIndex() {
+	public function index() {
 		return OpenCompetition::all();
 	}
 
 	// create new open competition
-	public function postIndex() {
+	public function store() {
 		$input = Input::all();
 		$oc = new OpenCompetition;
 		$oc->name = array_get($input, 'name');
@@ -23,13 +23,13 @@ class OpenCompetitionController extends BaseController {
 	}
 
 	// view competition
-	public function view($id) {
+	public function show($id) {
 		$oc = OpenCompetition::find($id);
 		return $oc;
 	}
 
 	// update competition
-	public function putIndex($id) {
+	public function update($id) {
 		$input = Input::all();
 		$oc = OpenCompetition::find($id);
 		$oc->name = array_get($input, 'name');
@@ -66,7 +66,7 @@ class OpenCompetitionController extends BaseController {
 	}
 
 	// get competitors of your competition
-	public function getCompetitors() {
+	public function competitors() {
 		$competitions = OpenCompetition::mine()->get(); // get competition of the logged in user
 		$competitors = OpenCompetitionCompetitor::fromCompetitions($competitions)->get(); // get competitor each competition
 		$data = [];
@@ -89,6 +89,12 @@ class OpenCompetitionController extends BaseController {
 			$data[] = $competitor;
 		}
 		return $data;
+	}
+
+	// approve competitor
+	public function approve($id) {
+		$competitor = OpenCompetitionCompetitor::find($id);
+		$competitor->approve();
 	}
 
 }

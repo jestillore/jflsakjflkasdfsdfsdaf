@@ -25,9 +25,13 @@ Route::group(['before' => 'oauth'], function () {
 	Route::controller('user', 'UsersController');
 	Route::resource('course', 'CoursesController');
 	Route::resource('party-play', 'PartyPlayController');
-
-	Route::get('open-competition/{id}', 'OpenCompetitionController@view');
+	// open competition
+	Route::get('open-competition/competitors', 'OpenCompetitionController@competitors');
+	Route::get('open-competition/approve/{id}', 'OpenCompetitionController@approve');
 	Route::get('open-competition/{id}/groups', 'OpenCompetitionController@groups');
 	Route::post('open-competition/{id}/join', 'OpenCompetitionController@join');
-	Route::controller('open-competition', 'OpenCompetitionController');
+	Route::resource('open-competition', 'OpenCompetitionController');
+	// closed competition
+	
+	Route::resource('closed-competition', 'ClosedCompetitionController');
 });
