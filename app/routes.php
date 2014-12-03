@@ -32,6 +32,11 @@ Route::group(['before' => 'oauth'], function () {
 	Route::post('open-competition/{id}/join', 'OpenCompetitionController@join');
 	Route::resource('open-competition', 'OpenCompetitionController');
 	// closed competition
-	
+		Route::post('closed-competition/{id}/create-group', 'ClosedCompetitionController@createGroup');
+		Route::get('closed-competition/group', 'ClosedCompetitionController@groups');
+		Route::get('closed-competition/group/mine', 'ClosedCompetitionController@myGroups');
+		Route::post('closed-competition/group/{id}/join', 'ClosedCompetitionController@joinGroup');
+		Route::delete('closed-competition/group/{id}/leave', 'ClosedCompetitionController@leaveGroup');
+		Route::delete('closed-competition/competitor/{id}/kick', 'ClosedCompetitionController@kickMember');
 	Route::resource('closed-competition', 'ClosedCompetitionController');
 });
