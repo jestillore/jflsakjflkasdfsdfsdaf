@@ -69,6 +69,7 @@ class OpenCompetitionController extends BaseController {
 	public function competitors() {
 		$competitions = OpenCompetition::mine()->get(); // get competition of the logged in user
 		$competitors = OpenCompetitionCompetitor::fromCompetitions($competitions)->get(); // get competitor each competition
+		//return $competitors;
 		$data = [];
 		foreach($competitors as $competitor) {
 			$group = $competitor->group;
