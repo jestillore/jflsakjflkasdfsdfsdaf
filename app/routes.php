@@ -33,6 +33,7 @@ Route::group(['before' => 'oauth'], function () {
 	Route::resource('open-competition', 'OpenCompetitionController');
 	// closed competition
 	Route::post('closed-competition/{id}/create-group', 'ClosedCompetitionController@createGroup');
+	Route::get('closed-competition/{id}/group', 'ClosedCompetitionController@competitionGroups');
 	Route::get('closed-competition/group', 'ClosedCompetitionController@groups');
 	Route::get('closed-competition/group/mine', 'ClosedCompetitionController@myGroups');
 	Route::post('closed-competition/group/{id}/join', 'ClosedCompetitionController@joinGroup');

@@ -178,4 +178,14 @@ class ClosedCompetitionController extends \BaseController {
 		ClosedCompetitionCompetitor::destroy($id);
 	}
 
+	/**
+	* @GET
+	* Get groups by competition
+	* /closed-competition/{id}/group
+	*/
+	public function competitionGroups($id) {
+		$groups = ClosedCompetitionGroup::where('closed_competition_id', '=', $id)->get();
+		return $groups;
+	}
+
 }
