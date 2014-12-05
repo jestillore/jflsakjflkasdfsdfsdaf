@@ -8,14 +8,17 @@ class BetRegistrationController extends BaseController {
 		PartyPlayBet::where('party_play_id', '=', $id)
 			->where('hole_id', '=', $holeID)
 			->delete();
-		foreach(array_get($input, 'bets') as $b) {
-			$b = (object)$b;
-			$bet = new PartyPlayBet;
-			$bet->party_play_id = $id;
-			$bet->hole_id = $holeID;
-			$bet->amount = $b->amount;
-			$bet->bet_type_id = $b->bet_type_id;
-			$bet->save();
+		$bets = array_get($input, 'bets');
+		if(is_array($bets)) {
+			foreach(array_get($input, 'bets') as $b) {
+				$b = (object)$b;
+				$bet = new PartyPlayBet;
+				$bet->party_play_id = $id;
+				$bet->hole_id = $holeID;
+				$bet->amount = $b->amount;
+				$bet->bet_type_id = $b->bet_type_id;
+				$bet->save();
+			}
 		}
 	}
 
