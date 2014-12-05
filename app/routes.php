@@ -41,4 +41,6 @@ Route::group(['before' => 'oauth'], function () {
 	Route::resource('closed-competition', 'ClosedCompetitionController');
 	// party play bet
 	Route::controller('bet-registration', 'BetRegistrationController');
+	// party play score
+	Route::controller('score-registration', 'ScoreRegistrationController');
 });
