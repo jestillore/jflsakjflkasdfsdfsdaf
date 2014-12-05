@@ -39,4 +39,6 @@ Route::group(['before' => 'oauth'], function () {
 	Route::delete('closed-competition/group/{id}/leave', 'ClosedCompetitionController@leaveGroup');
 	Route::delete('closed-competition/competitor/{id}/kick', 'ClosedCompetitionController@kickMember');
 	Route::resource('closed-competition', 'ClosedCompetitionController');
+	// party play bet
+	Route::controller('bet-registration', 'BetRegistrationController');
 });
