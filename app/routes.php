@@ -44,4 +44,8 @@ Route::group(['before' => 'oauth'], function () {
 	Route::controller('bet-registration', 'BetRegistrationController');
 	// party play score
 	Route::controller('score-registration', 'ScoreRegistrationController');
+	// bet type
+	Route::get('bet-type', function () {
+		return BetType::all();
+	});
 });
