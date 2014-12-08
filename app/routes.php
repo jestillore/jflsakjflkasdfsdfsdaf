@@ -48,4 +48,6 @@ Route::group(['before' => 'oauth'], function () {
 	Route::get('bet-type', function () {
 		return BetType::all();
 	});
+	// counting
+	Route::controller('counting', 'CountingController');
 });
