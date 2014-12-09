@@ -9,7 +9,9 @@ class PartyPlay extends BaseModel {
 		'course' => [self::BELONGS_TO, 'Course'],
 		'owner' => [self::BELONGS_TO, 'User', 'foreignKey' => 'member_id'],
 		'members' => [self::HAS_MANY, 'PartyMember'],
-		'scores' => [self::HAS_MANY, 'PartyPlayScore']
+		'bscores' => [self::HAS_MANY, 'PartyPlayBetScore', 'foreignKey' => 'party_play_id'],
+		'scores' => [self::HAS_MANY, 'PartyPlayScore'],
+		'bets' => [self::HAS_MANY, 'PartyPlayBet', 'foreignKey' => 'party_play_id']
 	];
 
 	public function toArray() {

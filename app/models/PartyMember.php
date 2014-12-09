@@ -6,11 +6,11 @@ class PartyMember extends BaseModel {
 	public $timestamps = false;
 
 	public static $relationsData = [
-		'member' => [self::BELONGS_TO, 'User', 'foreignKey' => 'member_id']
+		'member' => [self::BELONGS_TO, 'User']
 	];
 
 	public function toArray() {
-		$this->load('member');
+		//$this->load('member');
 		return parent::toArray();
 	}
 
