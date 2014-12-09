@@ -10,7 +10,7 @@ class PartyMember extends BaseModel {
 	];
 
 	public function toArray() {
-		//$this->load('member');
+		$this->load('member');
 		return parent::toArray();
 	}
 
