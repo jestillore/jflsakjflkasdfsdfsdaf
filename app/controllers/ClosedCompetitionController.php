@@ -112,6 +112,13 @@ class ClosedCompetitionController extends \BaseController {
 		$cg->closed_competition_id = $id;
 		$cg->member_id = Authorizer::getResourceOwnerId();
 		if($cg->save()) {
+			foreach(array_get($input, 'members') as $member) {
+				$competitor = new ClosedCompetitionCompetitor;
+				$competitor->closed_competition_id = $cg->closed_competition_id;
+				$competitor->member_id = $member;
+				$competitor->closed_competition_group_id = $cg->id;
+				$competitor->joined = date('Y-m-d h:i:s');
+			}
 			return $cg;
 		}
 		return Response::make($cg->errors(), 500);
