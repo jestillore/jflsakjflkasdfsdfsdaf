@@ -33,9 +33,9 @@ class BetRegistrationController extends BaseController {
 		* end tweak
 		*/
 		foreach($pp->course->hole_items as $hole) {
-			$bet = PartyPlayBet::where('party_play_id', '=', $id)
-				->where('hole_id', '=', $hole->id)->first();
-			$hole->bet = $bet;
+			$bets = PartyPlayBet::where('party_play_id', '=', $id)
+				->where('hole_id', '=', $hole->id)->get();
+			$hole->bets = $bets;
 		}
 		$res = json_encode($pp);
 		return $res;
