@@ -32,6 +32,13 @@ class ScoreRegistrationController extends BaseController {
 		}
 	}
 
+	public function getBets($id) {
+		$pp = PartyPlay::find($id);
+		$scores = PartyPlayBetScore::where('party_play_id', '=', $id)->get();
+		$pp->bet_scores = $scores;
+		return $pp;
+	}
+
 	public function putBet($id = 0) {
 		$bet = 0;
 		$scores = Input::get('scores');
