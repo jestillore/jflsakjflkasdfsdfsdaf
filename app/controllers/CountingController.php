@@ -31,7 +31,7 @@ class CountingController extends BaseController {
 		}
 		// sort by net value
 		usort($res, function ($a, $b) {
-			return strcmp($a['net'], $b['net']);
+			return strcmp($b['net'], $a['net']);
 		});
 		/**
 		* add rank base on index
