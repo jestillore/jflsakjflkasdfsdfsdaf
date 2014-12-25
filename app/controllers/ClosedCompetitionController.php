@@ -118,6 +118,7 @@ class ClosedCompetitionController extends \BaseController {
 				$competitor->member_id = $member;
 				$competitor->closed_competition_group_id = $cg->id;
 				$competitor->joined = date('Y-m-d h:i:s');
+				$competitor->save();
 			}
 			return $cg;
 		}
