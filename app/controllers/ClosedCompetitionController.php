@@ -127,6 +127,17 @@ class ClosedCompetitionController extends \BaseController {
 
 	/**
 	* @GET
+	* Update group
+	*/
+	public function updateGroup($c, $g) {
+		$group = ClosedCompetitionGroup::find($g);
+		$group->name = Input::get('name');
+		$group->save();
+		return $group;
+	}
+
+	/**
+	* @GET
 	* Get all groups
 	* /closed-competition/group
 	*/
