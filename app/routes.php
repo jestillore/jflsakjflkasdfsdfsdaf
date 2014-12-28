@@ -50,4 +50,10 @@ Route::group(['before' => 'oauth'], function () {
 	});
 	// counting
 	Route::controller('counting', 'CountingController');
+
+	Route::get('profile', function () {
+		$id = Authorizer::getResourceOwnerId();
+		$user = User::find($id);
+		return $user;
+	});
 });
