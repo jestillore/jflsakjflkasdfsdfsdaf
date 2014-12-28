@@ -196,4 +196,11 @@ class ClosedCompetitionController extends \BaseController {
 		return $groups;
 	}
 
+	public function udpateGroup($c,$g){
+		$group = ClosedCompetitionGroup::find($g);
+		$group->name = Input::get('name');
+		$group->save();
+
+		return $group;
+	}
 }
