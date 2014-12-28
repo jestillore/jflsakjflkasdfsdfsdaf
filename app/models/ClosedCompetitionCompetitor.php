@@ -14,4 +14,12 @@ class ClosedCompetitionCompetitor extends BaseModel {
 		return parent::toArray();
 	}
 
+	public function udpateGroup($c,$g){
+		$group = ClosedCompetitionGroup::find($g);
+		$group->name = Input::get('name');
+		$group->save();
+
+		return $group;
+	}
+
 }

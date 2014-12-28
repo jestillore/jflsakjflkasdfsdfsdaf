@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +34,7 @@ Route::group(['before' => 'oauth'], function () {
 	// closed competition
 	Route::post('closed-competition/{id}/create-group', 'ClosedCompetitionController@createGroup');
 	Route::get('closed-competition/{id}/group', 'ClosedCompetitionController@competitionGroups');
+	Route::put('closed-competition/{c}/group/{g}', 'ClosedCompetitionController@updateGroup');
 	Route::get('closed-competition/group', 'ClosedCompetitionController@groups');
 	Route::get('closed-competition/group/mine', 'ClosedCompetitionController@myGroups');
 	Route::post('closed-competition/group/{id}/join', 'ClosedCompetitionController@joinGroup');
