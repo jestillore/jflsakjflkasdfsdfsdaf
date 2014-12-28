@@ -196,7 +196,7 @@ class ClosedCompetitionController extends \BaseController {
 		return $groups;
 	}
 
-	public function udpateGroup($c,$g){
+	public function updateGroup($c,$g){
 		$group = ClosedCompetitionGroup::find($g);
 		$group->name = Input::get('name');
 		$group->save();
