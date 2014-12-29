@@ -199,8 +199,28 @@ class ClosedCompetitionController extends \BaseController {
 	public function updateGroup($c,$g){
 		$group = ClosedCompetitionGroup::find($g);
 		$group->name = Input::get('name');
-		$group->save();
+		$group->closed_competition_id = Input::get('closed_competition_id');
 
-		return $group;
+		if ($group->save()) {
+			$members = Input::get('members');
+			
+			if ($members) {	//updates members
+				ClosedCompetitionCompetitor::where('closed_competition_group_id', '=', $group->id)->delete();
+				
+				foreach ($members as $member) {
+					$competitor = new ClosedCompetitionCompetitor;
+					$competitor->closed_competition_id = $group->closed_competition_id;
+					$competitor->member_id =$member;
+					$competitor->closed_competition_group_id = $group->id;
+					$competitor->joined = date('Y-m-d h:i:s');
+					$competitor->save();
+				}
+			
+			}
+			
+			return $group;
+		}
+
+		return Response::make($group->errors(),500);
 	}
 }
