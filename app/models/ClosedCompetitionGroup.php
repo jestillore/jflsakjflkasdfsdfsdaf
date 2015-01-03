@@ -6,11 +6,12 @@ class ClosedCompetitionGroup extends BaseModel {
 	public $timestamps = false;
 
 	public static $relationsData = [
-		'competitors' => [self::HAS_MANY,'ClosedCompetitionCompetitor','foreignKey'=>'closed_competition_group_id']
+		'competitors' => [self::HAS_MANY,'ClosedCompetitionCompetitor','foreignKey'=>'closed_competition_group_id'],
+		'closed_competition' => [self::BELONGS_TO, 'ClosedCompetition', 'foreignKey' => 'closed_competition_id']
 	];
 
 	public function toArray(){
-		$this->load('competitors');
+		$this->load('competitors', 'closed_competition');
 		return parent::toArray();
 	}
 }
