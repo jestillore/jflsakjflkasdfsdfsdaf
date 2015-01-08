@@ -74,4 +74,48 @@ class CountingController extends BaseController {
 		return $res;
 	}
 
+	public function getClosedCompetition($id) {
+		$gid = Input::get('group_id');
+		$group = ClosedCompetitionGroup::find($gid);
+		$data = [];
+		$res = [];
+		// group scores by party member
+		$scores = ClosedCompetitionScore::where('closed_competition_id', '=', $id)
+			->where('closed_competition_group_id', '=', $gid)
+			->get();
+		foreach($scores as $score) {
+			if(!isset($data[$score->closed_competition_competitor_id])) {
+				$data[$score->closed_competition_competitor_id] = [];
+			}
+			$data[$score->closed_competition_competitor_id][] = $score;
+		}
+		// format response
+		foreach($data as $key => $s) {
+			$ccc = ClosedCompetitionCompetitor::find($key);
+			$gross = 0;
+			$net = 0;
+			// total scores
+			foreach($s as $score) {
+				$gross += ($score->score - $score->hole->par);
+			}
+			$net = $gross - $ccc->member->handicap;
+			$res[] = [
+				'name' => $ccc->member->firstname . ' ' . $ccc->member->lastname,
+				'gross' => $gross,
+				'net' => $net
+			];
+		}
+		// sort by net value
+		usort($res, function ($a, $b) {
+			return strcmp($b['net'], $a['net']);
+		});
+		/**
+		* add rank base on index
+		*/
+		for($x = 0; $x < count($res); $x++) {
+			$res[$x]['rank'] = $x + 1;
+		}
+		return $res;
+	}
+
 }

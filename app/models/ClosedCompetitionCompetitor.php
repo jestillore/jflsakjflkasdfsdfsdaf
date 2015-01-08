@@ -14,4 +14,6 @@ class ClosedCompetitionCompetitor extends BaseModel {
 		return parent::toArray();
 	}
 
+	
+
 }

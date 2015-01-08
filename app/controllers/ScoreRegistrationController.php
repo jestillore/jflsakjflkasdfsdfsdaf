@@ -67,4 +67,33 @@ class ScoreRegistrationController extends BaseController {
 		}
 	}
 
+	public function getClosedCompetition($id) {
+		$gid = Input::get('group_id');
+		$group = json_encode(ClosedCompetitionGroup::find($gid));
+		$group = json_decode($group);
+		foreach($group->competitors as $competitor) {
+			$competitor->scores = ClosedCompetitionScore::where('closed_competition_competitor_id', '=', $competitor->id)
+				->where('closed_competition_group_id', '=', $gid)->get();
+		}
+		return json_encode($group);
+	}
+
+	public function putClosedCompetition($id) {
+		$input = Input::all();
+		$scores = array_get($input, 'scores');
+		if(is_array($scores)) {
+			foreach($scores as $score) {
+				$score = (object) $score;
+				$ccs = ClosedCompetitionScore::firstOrNew([
+					'closed_competition_id' => $id,
+					'closed_competition_group_id' => array_get($input, 'closed_competition_group_id'),
+					'hole_id' => array_get($input, 'hole_id'),
+					'closed_competition_competitor_id' => $score->closed_competition_competitor_id
+					]);
+				$ccs->score = $score->score;
+				$ccs->save();
+			}
+		}
+	}
+
 }
