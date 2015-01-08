@@ -53,10 +53,15 @@ class ScoreRegistrationController extends BaseController {
 		}
 		foreach($scores as $score) {
 			$score = (object) $score;
-			$bs = new PartyPlayBetScore;
-			$bs->party_play_bet_id = $bet->id;
-			$bs->party_member_id = $score->party_member_id;
-			$bs->party_play_id = $bet->party_play_id;
+			// $bs = new PartyPlayBetScore;
+			$bs = PartyPlayBetScore::firstOrNew([
+				'party_play_bet_id' => $bet->id,
+				'party_member_id' => $score->party_member_id,
+				'party_play_id' => $bet->party_play_id
+				]);
+			// $bs->party_play_bet_id = $bet->id;
+			// $bs->party_member_id = $score->party_member_id;
+			// $bs->party_play_id = $bet->party_play_id;
 			$bs->score = $score->score;
 			$bs->save();
 		}
