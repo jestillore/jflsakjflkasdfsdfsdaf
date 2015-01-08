@@ -9,6 +9,7 @@ class ScoreRegistrationController extends BaseController {
 		foreach($pp->members as $member) {
 			$scores = PartyPlayScore::where('party_member_id', '=', $member->id)
 				->where('party_play_id', '=', $member->party_play_id)
+				->orderBy('hole_id')
 				->get();
 			$member->scores = $scores;
 		}
