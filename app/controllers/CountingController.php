@@ -20,7 +20,7 @@ class CountingController extends BaseController {
 			$net = 0;
 			// total scores
 			foreach($scores as $score) {
-				$gross += ($score->score - $score->hole->par);
+				$gross += ($score->score/* - $score->hole->par*/); // exclude par from counting
 			}
 			$net = $gross - $pm->member->handicap;
 			$res[] = [
@@ -96,7 +96,7 @@ class CountingController extends BaseController {
 			$net = 0;
 			// total scores
 			foreach($s as $score) {
-				$gross += ($score->score - $score->hole->par);
+				$gross += ($score->score/* - $score->hole->par*/);
 			}
 			$net = $gross - $ccc->member->handicap;
 			$res[] = [
