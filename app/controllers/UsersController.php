@@ -17,7 +17,7 @@ class UsersController extends BaseController {
 		$user->email = array_get($input, 'email');
 		$user->password = Hash::make(array_get($input, 'password'));
 		$user->gender = array_get($input, 'gender');
-		$user->handicap = array_get($input, 'handicap');
+		$user->handicap = (null !== array_get($input, 'handicap')) ? array_get($input, 'handicap') : 0;
 		if($user->save()) { // validate inputs
 			return $user;
 		}
