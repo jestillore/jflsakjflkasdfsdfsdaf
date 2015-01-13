@@ -43,8 +43,10 @@ class PartyPlayController extends \BaseController {
 				foreach(array_get($input, 'members') as $m) {
 					$member = new PartyMember;
 					$member->party_play_id = $pp->id;
-					$member->member_id = $m;
+					$member->member_id = $m['member_id'];
 					$member->save();
+					$member->member->handicap = $m['handicap'];
+					$member->member->updateUniques();
 				}
 			}
 			return $pp;
@@ -97,8 +99,10 @@ class PartyPlayController extends \BaseController {
 				foreach(array_get($input, 'members') as $m) {
 					$member = new PartyMember;
 					$member->party_play_id = $pp->id;
-					$member->member_id = $m;
+					$member->member_id = $m['member_id'];
 					$member->save();
+					$member->member->handicap = $m['handicap'];
+					$member->member->updateUniques();
 				}
 			}
 			return $pp;
