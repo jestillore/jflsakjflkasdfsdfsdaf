@@ -1,9 +1,14 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class PartyPlay extends BaseModel {
+
+	use SoftDeletingTrait;
 
 	public $timestamps = false;
 	protected $table = 'party_plays';
+	protected $dates = ['deleted_at'];
 
 	public static $relationsData = [
 		'course' => [self::BELONGS_TO, 'Course'],
