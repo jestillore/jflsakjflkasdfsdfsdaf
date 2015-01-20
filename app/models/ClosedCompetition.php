@@ -6,7 +6,8 @@ class ClosedCompetition extends BaseModel {
 	public $timestamps = false;
 
 	public static $relationsData = [
-		'course' => [self::BELONGS_TO, 'Course']
+		'course' => [self::BELONGS_TO, 'Course'],
+		'groups' => [self::HAS_MANY, 'ClosedCompetitionGroup', 'foreignKey' => 'closed_competition_id']
 	];
 
 	public function toArray() {
