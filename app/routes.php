@@ -58,3 +58,27 @@ Route::group(['before' => 'oauth'], function () {
 		return $user;
 	});
 });
+
+Route::get('wipe-data', function () {
+	$tables = [
+		'closed_competitions',
+		'closed_competition_competitors',
+		'closed_competition_groups',
+		'closed_competition_scores',
+		'courses',
+		'holes',
+		'members',
+		'open_competitions',
+		'open_competition_competitors',
+		'open_competition_groups',
+		'open_competition_scores',
+		'party_members',
+		'party_plays',
+		'party_play_bets',
+		'party_play_bet_scores',
+		'party_play_scores',
+	];
+	foreach($tables as $table) {
+		DB::table($table)->delete();
+	}
+});
