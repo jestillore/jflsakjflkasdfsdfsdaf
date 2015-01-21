@@ -22,12 +22,16 @@ class ScoreRegistrationController extends BaseController {
 		if(is_array($scores)) {
 			foreach($scores as $score) {
 				$score = (object) $score;
+				$pm = PartyMember::find($score->party_member_id);
 				$ps = PartyPlayScore::firstOrNew([
 					'party_play_id' => $id,
 					'hole_id' => array_get($input, 'hole_id'),
 					'party_member_id' => $score->party_member_id
 					]);
 				$ps->score = $score->score;
+				if($ps->handicap == 0) {
+					$ps->handicap = $pm->member->handicap;
+				}
 				$ps->save();
 			}
 		}
@@ -85,6 +89,7 @@ class ScoreRegistrationController extends BaseController {
 		if(is_array($scores)) {
 			foreach($scores as $score) {
 				$score = (object) $score;
+				$cc = ClosedCompetitionCompetitor::find($score->closed_competition_competitor_id);
 				$ccs = ClosedCompetitionScore::firstOrNew([
 					'closed_competition_id' => $id,
 					'closed_competition_group_id' => array_get($input, 'closed_competition_group_id'),
@@ -92,6 +97,9 @@ class ScoreRegistrationController extends BaseController {
 					'closed_competition_competitor_id' => $score->closed_competition_competitor_id
 					]);
 				$ccs->score = $score->score;
+				if($ccs->handicap == 0) {
+					$ccs->handicap = $cc->member->handicap;
+				}
 				$ccs->save();
 			}
 		}
