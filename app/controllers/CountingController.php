@@ -72,7 +72,7 @@ class CountingController extends BaseController {
 			];
 		}
 		usort($res, function ($a, $b) {
-			return strcmp($b['score'], $a['score']);
+			return strcmp($a['score'], $b['score']);
 		});
 		for($x = 0; $x < count($res); $x++) {
 			$res[$x]['rank'] = $x + 1;
