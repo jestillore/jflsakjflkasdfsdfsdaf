@@ -152,8 +152,12 @@ class ClosedCompetitionController extends \BaseController {
 	* /closed-competition/group/mine
 	*/
 	public function myGroups() {
-		$groups = ClosedCompetitionGroup::where('member_id', '=', Authorizer::getResourceOwnerId())->get();
-		// $groups = ClosedCompetitionGroup::where('')
+		// $groups = ClosedCompetitionGroup::where('member_id', '=', Authorizer::getResourceOwnerId())->get();
+		$groups = [];
+		$competitors = ClosedCompetitionCompetitor::where('member_id', '=', Authorizer::getResourceOwnerId())->get();
+		foreach ($competitors as $competitor) {
+			$groups[] = ClosedCompetitionGroup::find($competitor->closed_competition_group_id);
+		}
 		return $groups;
 	}
 
