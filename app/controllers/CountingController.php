@@ -31,7 +31,7 @@ class CountingController extends BaseController {
 		}
 		// sort by net value
 		usort($res, function ($a, $b) {
-			return strcmp($a['net'], $b['net']);
+			return $a['net'] - $b['net'];
 		});
 		/**
 		* add rank base on index
@@ -61,6 +61,7 @@ class CountingController extends BaseController {
 			foreach($scores as $s) {
 				$score += $s->score;
 			}
+			$originalScore = $score;
 			if($score < 0) {
 				$operand = '-';
 				$score *= -1;
@@ -68,11 +69,12 @@ class CountingController extends BaseController {
 			$res[] = [
 				'name' => $pm->member->firstname . ' ' . $pm->member->lastname,
 				'operand' => $operand,
-				'score' => $score
+				'score' => $score,
+				'originalScore' => $originalScore
 			];
 		}
 		usort($res, function ($a, $b) {
-			return strcmp($b['score'], $a['score']);
+			return $b['originalScore'] - $a['originalScore'];
 		});
 		for($x = 0; $x < count($res); $x++) {
 			$res[$x]['rank'] = $x + 1;
@@ -164,7 +166,7 @@ class CountingController extends BaseController {
 		}
 		// sort by net value
 		usort($res, function ($a, $b) {
-			return strcmp($a['net'], $b['net']);
+			return $a['net'] - $b['net'];
 		});
 		/**
 		* add rank base on index
