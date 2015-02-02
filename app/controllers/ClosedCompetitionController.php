@@ -106,6 +106,13 @@ class ClosedCompetitionController extends \BaseController {
 	* Create group for the competition
 	*/
 	public function createGroup($id) {
+
+		// check if members are not member of any group under same competition
+		if (ClosedCompetitionCompetitor::whereIn('member_id', Input::get('members'))
+			->where('closed_competition_id', '=', $id)->count() > 0) {
+			App::abort(500);
+		}
+
 		$input = Input::all();
 		$cg = new ClosedCompetitionGroup;
 		$cg->name = array_get($input, 'name');
