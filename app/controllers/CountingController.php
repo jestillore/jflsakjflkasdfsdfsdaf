@@ -24,7 +24,8 @@ class CountingController extends BaseController {
 			}
 			$net = $gross - $pm->member->handicap;
 			$res[] = [
-				'name' => $pm->member->firstname . ' ' . $pm->member->lastname,
+				// 'name' => $pm->member->firstname . ' ' . $pm->member->lastname,
+				'member' => $pm->member,
 				'gross' => $gross,
 				'net' => $net
 			];
@@ -67,7 +68,8 @@ class CountingController extends BaseController {
 				$score *= -1;
 			}
 			$res[] = [
-				'name' => $pm->member->firstname . ' ' . $pm->member->lastname,
+				// 'name' => $pm->member->firstname . ' ' . $pm->member->lastname,
+				'member' => $pm->member,
 				'operand' => $operand,
 				'score' => $score,
 				'originalScore' => $originalScore
@@ -159,7 +161,8 @@ class CountingController extends BaseController {
 			}
 			$net = $gross - $ccc->member->handicap;
 			$res[] = [
-				'name' => $ccc->member->firstname . ' ' . $ccc->member->lastname,
+				//'name' => $ccc->member->firstname . ' ' . $ccc->member->lastname,
+				'member' => $ccc->member,
 				'gross' => $gross,
 				'net' => $net
 			];
