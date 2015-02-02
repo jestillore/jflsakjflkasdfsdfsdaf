@@ -18,11 +18,13 @@ class CountingController extends BaseController {
 			$pm = PartyMember::find($key);
 			$gross = 0;
 			$net = 0;
+			$handicap = 0;
 			// total scores
 			foreach($scores as $score) {
+				$handicap = $score->handicap;
 				$gross += ($score->score/* - $score->hole->par*/); // exclude par from counting
 			}
-			$net = $gross - $pm->member->handicap;
+			$net = $gross - $handicap;
 			$res[] = [
 				// 'name' => $pm->member->firstname . ' ' . $pm->member->lastname,
 				'member' => $pm->member,
@@ -155,11 +157,13 @@ class CountingController extends BaseController {
 			$ccc = ClosedCompetitionCompetitor::find($key);
 			$gross = 0;
 			$net = 0;
+			$handicap = 0;
 			// total scores
 			foreach($s as $score) {
+				$handicap = $score->handicap;
 				$gross += ($score->score/* - $score->hole->par*/);
 			}
-			$net = $gross - $ccc->member->handicap;
+			$net = $gross - $handicap;
 			$res[] = [
 				//'name' => $ccc->member->firstname . ' ' . $ccc->member->lastname,
 				'member' => $ccc->member,
