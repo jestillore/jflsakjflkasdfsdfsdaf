@@ -174,8 +174,13 @@ class ClosedCompetitionController extends \BaseController {
 	* /closed-competition/group/{id}/join
 	*/
 	public function joinGroup($id) {
-		// add to competitors table
 		$cg = ClosedCompetitionGroup::find($id);
+
+		if(ClosedCompetitionCompetitor::where('closed_competition_id', '=', $cg->closed_competition_id)
+			->where('member_id', '=', Authorizer::getResourceOwnerId())->count() > 0) {
+			App::abort(500);
+		}
+		// add to competitors table
 		$competitor = new ClosedCompetitionCompetitor;
 		$competitor->closed_competition_id = $cg->closed_competition_id;
 		$competitor->member_id = Authorizer::getResourceOwnerId();
@@ -215,10 +220,7 @@ class ClosedCompetitionController extends \BaseController {
 	* /closed-competition/{id}/group
 	*/
 	public function competitionGroups($id) {
-		if(ClosedCompetitionCompetitor::where('closed_competition_id', '=', $id)
-			->where('member_id', '=', Authorizer::getResourceOwnerId())->count() > 0) {
-			App::abort(500);
-		}
+		
 		$groups = ClosedCompetitionGroup::where('closed_competition_id', '=', $id)->get();
 		return $groups;
 	}
